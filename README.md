@@ -1,6 +1,6 @@
 # Terminal Manager
 
-**English** · [Bahasa Indonesia](README.id.md)
+**English** · [Bahasa Indonesia](README.id.md) · [Website](https://alenovan.github.io/terminal-manager/)
 
 A terminal profile launcher for Windows that runs the terminals **inside its own window**, like the
 terminal panel of an IDE. Save your shells as profiles, group them, and open them as a grid of live
@@ -8,17 +8,7 @@ panes instead of a scatter of separate windows.
 
 No runtime to install, no dependencies. One `.exe`.
 
-```
-+-- Local ---------+---------------+
-| PS C:\> npm run  | $ git status  |
-| ready on :3000   | On branch main|
-| _                | _             |
-+------------------+---------------+
-| wsl:~$ htop      | ssh prod      |
-| CPU  32%         | root@prod:~#  |
-| _                | _             |
-+------------------+---------------+
-```
+![Three terminals of one group running side by side in a single window](docs/img/main.png)
 
 The terminals are real. Terminal Manager talks to the Windows pseudo console (ConPTY), so ANSI
 colour, cursor control, resizing, and full-screen TUI programs such as `vim`, `htop` or an `ssh`
@@ -71,6 +61,28 @@ kept unless you tick the box to delete them.
 uninstall.exe /uninstall /S            remove silently, keep profiles
 uninstall.exe /uninstall /S /purge     remove silently, delete profiles too
 ```
+
+---
+
+## Your first minute
+
+1. **Start it.** The sidebar comes seeded with a few sample profiles. Rename them or delete them —
+   nothing here is fixed.
+2. **Make a group.** Press **+ Group** and call it after the thing you work on: a client, a project,
+   a machine. One group is one workspace.
+3. **Add a profile.** Press **+ Profile**, pick a shell preset — PowerShell, Command Prompt, WSL,
+   Git Bash — and give it a name. Point **Working directory** at the folder you want it to open in.
+   Anything in **Startup commands** is typed into the shell the moment it opens, one line per
+   command, so a profile can start its own dev server.
+4. **Open it.** Double-click the profile, or press `Ctrl+Enter`. The terminal appears inside the
+   window, in a tab named after its group.
+5. **Open the rest of the group.** Press **Launch whole group**. Every profile of that group lands
+   in the same tab as its own pane, side by side.
+
+![The profile editor, with shell preset, working directory and startup commands](docs/img/editor.png)
+
+Your layout is remembered. Close the window with four panes open and they come back, in the same
+shape, the next time you start it.
 
 ---
 
@@ -199,26 +211,15 @@ listing every running terminal with a bar for memory and one for CPU, its group 
 underneath, and a total at the foot. Click a column heading to sort by it. The window samples every
 session while it is open, including the ones on hidden tabs, and closes with `Esc`.
 
-```
-Resources
-3 running terminal(s)
-
-  Terminal                Memory        CPU
-  Memory hog              77 MB         0%
-  Test - pid 26416        ##########    ..........
-  Busy loop               77 MB         8%
-  Test - pid 25932        ##########    #.........
-  Idle shell              4 MB          0%
-  Test - pid 21736        #.........    ..........
-
-  Total                   157 MB        8%
-```
+![The resource monitor, one row per running terminal with memory and CPU bars](docs/img/resources.png)
 
 ### The office
 
 **Office** in the toolbar, or `Ctrl+Shift+O`, draws the group as a pixel-art office. **One group is
 one office, one profile is one character.** Every profile in the group keeps its desk whether or not
 a terminal is running, so the floor plan stays put instead of rearranging itself.
+
+![The office view: three desks, a worker walking to the coffee room, the boss watching](docs/img/office.png)
 
 What each character does is driven by its session's real CPU, not by a script:
 

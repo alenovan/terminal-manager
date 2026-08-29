@@ -1,6 +1,6 @@
 # Terminal Manager
 
-[English](README.md) · **Bahasa Indonesia**
+[English](README.md) · **Bahasa Indonesia** · [Situs](https://alenovan.github.io/terminal-manager/)
 
 Launcher profil terminal untuk Windows yang menjalankan terminalnya **di dalam window-nya sendiri**,
 seperti panel terminal di IDE. Simpan shell-mu sebagai profil, kelompokkan, lalu buka sebagai grid
@@ -8,17 +8,7 @@ pane yang semuanya hidup — bukan window yang berserakan.
 
 Tanpa runtime tambahan, tanpa dependensi. Satu `.exe`.
 
-```
-+-- Local ---------+---------------+
-| PS C:\> npm run  | $ git status  |
-| ready on :3000   | On branch main|
-| _                | _             |
-+------------------+---------------+
-| wsl:~$ htop      | ssh prod      |
-| CPU  32%         | root@prod:~#  |
-| _                | _             |
-+------------------+---------------+
-```
+![Tiga terminal dari satu grup berjalan berdampingan dalam satu window](docs/img/main.png)
 
 Terminalnya asli. Terminal Manager berbicara langsung dengan Windows pseudo console (ConPTY), jadi
 warna ANSI, kontrol kursor, resize, dan program TUI layar penuh seperti `vim`, `htop`, atau prompt
@@ -72,6 +62,28 @@ disimpan kecuali kamu mencentang opsi untuk menghapusnya.
 uninstall.exe /uninstall /S            copot senyap, profil disimpan
 uninstall.exe /uninstall /S /purge     copot senyap, profil ikut dihapus
 ```
+
+---
+
+## Satu menit pertama
+
+1. **Jalankan.** Sidebar sudah terisi beberapa profil contoh. Ganti namanya atau hapus — tidak ada
+   yang permanen di sini.
+2. **Buat grup.** Tekan **+ Group**, beri nama sesuai yang kamu kerjakan: klien, proyek, atau mesin.
+   Satu grup adalah satu ruang kerja.
+3. **Tambah profil.** Tekan **+ Profile**, pilih preset shell — PowerShell, Command Prompt, WSL, Git
+   Bash — lalu beri nama. Arahkan **Working directory** ke folder tempat terminal itu harus dibuka.
+   Isi **Startup commands** akan diketikkan ke shell begitu terminal terbuka, satu baris satu
+   perintah, jadi sebuah profil bisa menyalakan dev server-nya sendiri.
+4. **Buka.** Klik dua kali profilnya, atau tekan `Ctrl+Enter`. Terminalnya muncul di dalam window,
+   di tab yang bernama sesuai grupnya.
+5. **Buka seisi grup.** Tekan **Launch whole group**. Semua profil grup itu masuk ke tab yang sama,
+   masing-masing sebagai pane, berjajar.
+
+![Editor profil, dengan preset shell, folder kerja, dan startup commands](docs/img/editor.png)
+
+Tata letaknya diingat. Tutup window dengan empat pane terbuka, dan semuanya kembali dengan susunan
+yang sama saat kamu membukanya lagi.
 
 ---
 
@@ -206,26 +218,15 @@ jendela pemantau: tiap terminal yang berjalan dengan bar memori dan bar CPU, nam
 di bawahnya, serta total di kakinya. Klik judul kolom untuk mengurutkan. Selama terbuka, jendela ini
 menyampel semua sesi termasuk yang tabnya tersembunyi, dan ditutup dengan `Esc`.
 
-```
-Resources
-3 running terminal(s)
-
-  Terminal                Memory        CPU
-  Memory hog              77 MB         0%
-  Test - pid 26416        ##########    ..........
-  Busy loop               77 MB         8%
-  Test - pid 25932        ##########    #.........
-  Idle shell              4 MB          0%
-  Test - pid 21736        #.........    ..........
-
-  Total                   157 MB        8%
-```
+![Pemantau resource, satu baris per terminal dengan bar memori dan CPU](docs/img/resources.png)
 
 ### Kantor
 
 Tombol **Office** di toolbar, atau `Ctrl+Shift+O`, menggambar grup sebagai kantor pixel art.
 **Satu grup satu kantor, satu profil satu karakter.** Tiap profil di grup itu tetap punya mejanya
 entah terminalnya sedang jalan atau tidak, jadi denah kantornya tidak berubah-ubah sendiri.
+
+![Tampilan kantor: tiga meja, satu karyawan berjalan ke ruang kopi, bosnya mengawasi](docs/img/office.png)
 
 Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
 

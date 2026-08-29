@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal Manager — terminals inside one window</title>
+<meta name="description" content="A Windows terminal profile launcher that runs your shells inside its own window, as a grid of live panes. One installer, no dependencies.">
+<meta property="og:title" content="Terminal Manager">
+<meta property="og:description" content="Windows terminal profile launcher. Your shells as profiles, grouped, running inside one window as a grid of live panes.">
+<meta property="og:image" content="https://alenovan.github.io/terminal-manager/img/main.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2335d68c'/><path d='M8 10l5 6-5 6M17 22h7' stroke='%230f1115' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161a21;
+    --line: #232936;
+    --text: #e7eaf0;
+    --muted: #98a2b3;
+    --accent: #35d68c;
+    --accent-dim: #1f7f56;
+    --radius: 14px;
+    --mono: ui-monospace, "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 system-ui, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- top bar ---- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; gap: 20px; height: 62px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -.01em; }
+  .brand .mark {
+    width: 26px; height: 26px; border-radius: 7px; background: var(--accent);
+    color: #0f1115; font: 700 13px/26px var(--mono); text-align: center;
+  }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+  .bar nav a { color: var(--muted); font-size: 14.5px; }
+  .bar nav a:hover { color: var(--text); text-decoration: none; }
+  .langswitch {
+    display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden;
+  }
+  .langswitch button {
+    background: none; border: 0; color: var(--muted); font: 600 12.5px/1 inherit;
+    padding: 7px 11px; cursor: pointer;
+  }
+  .langswitch button[aria-pressed="true"] { background: var(--accent); color: #0f1115; }
+
+  /* ---- hero ---- */
+  .hero { padding: 76px 0 8px; text-align: center; }
+  h1 {
+    margin: 0 0 14px; font-size: clamp(34px, 6vw, 56px); line-height: 1.06;
+    letter-spacing: -.03em; font-weight: 700;
+  }
+  h1 .glow { color: var(--accent); }
+  .lede { margin: 0 auto; max-width: 660px; color: var(--muted); font-size: 18.5px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 30px 0 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 22px; border-radius: 10px; font-weight: 600; font-size: 15.5px;
+    border: 1px solid var(--line); color: var(--text);
+  }
+  .btn:hover { text-decoration: none; border-color: #33405a; }
+  .btn.primary { background: var(--accent); color: #0f1115; border-color: var(--accent); }
+  .btn.primary:hover { background: #45e79c; }
+  .fine { color: var(--muted); font-size: 13.5px; margin-top: 6px; }
+
+  .shot {
+    margin: 44px 0 0; border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; background: var(--panel);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .caption { color: var(--muted); font-size: 13.5px; text-align: center; margin-top: 12px; }
+
+  /* ---- sections ---- */
+  section { padding: 74px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+  h2 {
+    margin: 0 0 10px; font-size: clamp(24px, 3.4vw, 33px);
+    letter-spacing: -.02em; font-weight: 700;
+  }
+  .sub { color: var(--muted); margin: 0 0 34px; max-width: 660px; }
+
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 22px 24px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: 14.8px; }
+  .card .ico { font-size: 20px; display: block; margin-bottom: 12px; }
+
+  .split { display: grid; gap: 34px; align-items: center; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 820px) { .split { grid-template-columns: 1fr; } }
+  .split p { color: var(--muted); }
+  .split h2 { margin-bottom: 14px; }
+
+  ol.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; }
+  ol.steps li {
+    counter-increment: s; position: relative; padding: 0 0 20px 46px; color: var(--muted);
+  }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 1px;
+    width: 28px; height: 28px; border-radius: 8px;
+    background: rgba(53, 214, 140, .12); color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    font: 600 13.5px/26px var(--mono); text-align: center;
+  }
+  ol.steps b { color: var(--text); font-weight: 620; }
+
+  pre {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 18px; overflow-x: auto; font: 13.6px/1.7 var(--mono); color: #cfd6e4;
+  }
+  kbd {
+    font: 12.5px/1 var(--mono); background: #1d2430; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 5px; padding: 3px 6px; color: var(--text);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 13.5px; text-transform: uppercase; letter-spacing: .06em; }
+  td:first-child { white-space: nowrap; color: var(--text); }
+  td { color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 60px; color: var(--muted); font-size: 14.5px; }
+  footer .row { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+  footer .row .spacer { margin-left: auto; }
+
+  [data-when] { display: none; }
+  html[data-lang="en"] [data-when="en"], html[data-lang="id"] [data-when="id"] { display: revert; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <span class="brand"><span class="mark">&gt;_</span> Terminal Manager</span>
+    <nav>
+      <a href="#features" data-when="en">Features</a><a href="#features" data-when="id">Fitur</a>
+      <a href="#start" data-when="en">Getting started</a><a href="#start" data-when="id">Mulai</a>
+      <a href="#office" data-when="en">The office</a><a href="#office" data-when="id">Kantor</a>
+      <a href="https://github.com/alenovan/terminal-manager/releases/latest" data-when="en">Download</a>
+      <a href="https://github.com/alenovan/terminal-manager/releases/latest" data-when="id">Unduh</a>
+      <span class="langswitch">
+        <button type="button" data-set="en" aria-pressed="true">EN</button>
+        <button type="button" data-set="id" aria-pressed="false">ID</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <h1 data-when="en">Every terminal you use,<br><span class="glow">inside one window</span></h1>
+  <h1 data-when="id">Semua terminalmu,<br><span class="glow">dalam satu window</span></h1>
+
+  <p class="lede" data-when="en">
+    Save your shells as profiles, group them by client or project, and open them as a grid of live
+    panes — the way an IDE does it, without the IDE.
+  </p>
+  <p class="lede" data-when="id">
+    Simpan shell-mu sebagai profil, kelompokkan per klien atau proyek, lalu buka sebagai grid pane
+    yang semuanya hidup — seperti di IDE, tanpa perlu IDE-nya.
+  </p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/alenovan/terminal-manager/releases/latest">
+      <span data-when="en">Download for Windows</span><span data-when="id">Unduh untuk Windows</span>
+    </a>
+    <a class="btn" href="https://github.com/alenovan/terminal-manager">
+      <span data-when="en">View on GitHub</span><span data-when="id">Lihat di GitHub</span>
+    </a>
+  </div>
+  <p class="fine" data-when="en">One installer, ~400 KB. No runtime, no dependencies. Windows 10 1809 or newer.</p>
+  <p class="fine" data-when="id">Satu installer, ~400 KB. Tanpa runtime, tanpa dependensi. Windows 10 1809 atau lebih baru.</p>
+
+  <div class="shot"><img src="img/main.png" alt="Three terminals of one group running side by side in a single window" width="1400" height="880"></div>
+  <p class="caption" data-when="en">One group, three live shells, one tab. Drag a pane by its header to rearrange the grid.</p>
+  <p class="caption" data-when="id">Satu grup, tiga shell hidup, satu tab. Seret pane lewat header-nya untuk menyusun ulang grid.</p>
+</div>
+
+<section id="features" class="wrap">
+  <h2 data-when="en">What it does</h2>
+  <h2 data-when="id">Apa yang dilakukannya</h2>
+  <p class="sub" data-when="en">
+    The terminals are real ones. Terminal Manager talks to the Windows pseudo console, so colour,
+    cursor control, resizing and full-screen programs like <code>vim</code>, <code>htop</code> or an
+    <code>ssh</code> password prompt behave exactly as they do in a normal console.
+  </p>
+  <p class="sub" data-when="id">
+    Terminalnya asli. Terminal Manager berbicara langsung dengan Windows pseudo console, jadi warna,
+    kontrol kursor, resize, dan program layar penuh seperti <code>vim</code>, <code>htop</code>, atau
+    prompt password <code>ssh</code> berperilaku persis seperti di konsol biasa.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="ico">🗂️</span>
+      <h3 data-when="en">Profiles and groups</h3>
+      <h3 data-when="id">Profil dan grup</h3>
+      <p data-when="en">A profile is one shell: program, arguments, folder, environment, startup commands. Groups nest, and can be locked so nothing inside them moves by accident.</p>
+      <p data-when="id">Satu profil adalah satu shell: program, argumen, folder, environment, startup command. Grup bisa bersarang, dan bisa dikunci supaya isinya tidak berpindah tanpa sengaja.</p>
+    </div>
+    <div class="card">
+      <span class="ico">⬛</span>
+      <h3 data-when="en">A grid you can drag</h3>
+      <h3 data-when="id">Grid yang bisa diseret</h3>
+      <p data-when="en">Split right or down, drag a pane onto another pane's edge to move it, drop it in the middle to swap. Moving a pane never restarts the shell.</p>
+      <p data-when="id">Pecah ke kanan atau ke bawah, seret pane ke tepi pane lain untuk memindahkannya, jatuhkan di tengah untuk menukar. Memindahkan pane tidak pernah me-restart shell-nya.</p>
+    </div>
+    <div class="card">
+      <span class="ico">🧷</span>
+      <h3 data-when="en">One tab per group</h3>
+      <h3 data-when="id">Satu tab per grup</h3>
+      <p data-when="en">Terminals of the same group gather in one tab. Clicking a profile from another group opens its own tab instead of hiding the first.</p>
+      <p data-when="id">Terminal dari grup yang sama berkumpul di satu tab. Klik profil dari grup lain, tab baru yang terbuka — yang pertama tidak disembunyikan.</p>
+    </div>
+    <div class="card">
+      <span class="ico">💾</span>
+      <h3 data-when="en">Your session comes back</h3>
+      <h3 data-when="id">Sesimu kembali</h3>
+      <p data-when="en">Close with four panes open and they return in the same shape. Layouts can also be saved by name as workspaces.</p>
+      <p data-when="id">Tutup dengan empat pane terbuka, semuanya kembali dengan susunan yang sama. Tata letak juga bisa disimpan bernama sebagai workspace.</p>
+    </div>
+    <div class="card">
+      <span class="ico">📊</span>
+      <h3 data-when="en">Memory and CPU per terminal</h3>
+      <h3 data-when="id">Memori dan CPU tiap terminal</h3>
+      <p data-when="en">Every session runs in its own job object, so the figures cover the whole process tree — the dev server too, not just the shell.</p>
+      <p data-when="id">Tiap sesi berjalan di job object sendiri, jadi angkanya mencakup seluruh pohon proses — dev server-nya juga, bukan cuma shell-nya.</p>
+    </div>
+    <div class="card">
+      <span class="ico">🧹</span>
+      <h3 data-when="en">Nothing is orphaned</h3>
+      <h3 data-when="id">Tidak ada proses yatim</h3>
+      <p data-when="en">Closing a pane ends the process and everything it started. An <code>npm run dev</code> cannot survive the tab that launched it.</p>
+      <p data-when="id">Menutup pane menghentikan prosesnya beserta semua anaknya. <code>npm run dev</code> tidak bisa lolos dari tab yang menjalankannya.</p>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="wrap">
+  <div class="split">
+    <div>
+      <h2 data-when="en">Your first minute</h2>
+      <h2 data-when="id">Satu menit pertama</h2>
+      <ol class="steps">
+        <li data-when="en"><b>Install and start it.</b> The sidebar comes seeded with sample profiles — rename them or delete them.</li>
+        <li data-when="id"><b>Pasang dan jalankan.</b> Sidebar sudah terisi profil contoh — ganti namanya atau hapus.</li>
+        <li data-when="en"><b>Make a group</b> named after what you work on: a client, a project, a machine.</li>
+        <li data-when="id"><b>Buat grup</b> sesuai yang kamu kerjakan: klien, proyek, atau mesin.</li>
+        <li data-when="en"><b>Add a profile.</b> Pick a shell preset, name it, point it at a working directory. Startup commands are typed into the shell the moment it opens.</li>
+        <li data-when="id"><b>Tambah profil.</b> Pilih preset shell, beri nama, arahkan ke folder kerjanya. Startup command diketikkan ke shell begitu terminal terbuka.</li>
+        <li data-when="en"><b>Open it</b> with a double-click or <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</li>
+        <li data-when="id"><b>Buka</b> dengan klik dua kali atau <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</li>
+        <li data-when="en"><b>Open the whole group</b> and every profile lands in one tab, side by side.</li>
+        <li data-when="id"><b>Buka seisi grup</b>, semua profil masuk ke satu tab, berjajar.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="shot"><img src="img/editor.png" alt="The profile editor" width="1400" height="880"></div>
+    </div>
+  </div>
+</section>
+
+<section id="office" class="wrap">
+  <h2 data-when="en">The office</h2>
+  <h2 data-when="id">Kantor</h2>
+  <p class="sub" data-when="en">
+    One group is one office, one profile is one character. What each of them does is driven by the
+    real CPU of its terminal — not by a script.
+  </p>
+  <p class="sub" data-when="id">
+    Satu grup satu kantor, satu profil satu karakter. Tingkah tiap karakter digerakkan oleh CPU
+    sesungguhnya dari terminalnya — bukan skrip.
+  </p>
+
+  <div class="shot"><img src="img/office.png" alt="The office view: three desks, a worker walking to the coffee room, the boss watching" width="1920" height="1032"></div>
+
+  <table style="margin-top:30px">
+    <thead>
+      <tr>
+        <th data-when="en">On screen</th><th data-when="id">Di layar</th>
+        <th data-when="en">Meaning</th><th data-when="id">Artinya</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-when="en">Typing fast, flushed, sweating</td><td data-when="id">Mengetik cepat, memerah, berkeringat</td>
+        <td data-when="en">over 40% CPU — and it keeps going</td><td data-when="id">CPU di atas 40% — dan terus jalan</td>
+      </tr>
+      <tr>
+        <td data-when="en">A bubble with a program name</td><td data-when="id">Bubble berisi nama program</td>
+        <td data-when="en">that terminal is running <code>claude</code>, <code>node</code>, <code>git</code>…</td>
+        <td data-when="id">terminal itu sedang menjalankan <code>claude</code>, <code>node</code>, <code>git</code>…</td>
+      </tr>
+      <tr>
+        <td data-when="en">Water cooler, coffee room, a game, a chat</td><td data-when="id">Galon air, ruang kopi, main game, mengobrol</td>
+        <td data-when="en">quiet for about six seconds</td><td data-when="id">sekitar enam detik tanpa aktivitas</td>
+      </tr>
+      <tr>
+        <td data-when="en">The boss walks over</td><td data-when="id">Bosnya menghampiri</td>
+        <td data-when="en">somebody has been gaming too long</td><td data-when="id">ada yang kelamaan main game</td>
+      </tr>
+      <tr>
+        <td data-when="en">Asleep at the desk</td><td data-when="id">Tertidur di meja</td>
+        <td data-when="en">an hour with nothing to do</td><td data-when="id">satu jam tanpa pekerjaan</td>
+      </tr>
+      <tr>
+        <td data-when="en">Sparks and a grumble</td><td data-when="id">Percikan api dan gerutuan</td>
+        <td data-when="en">you clicked them — fifteen minutes of desk time, no breaks</td>
+        <td data-when="id">kamu mengkliknya — lima belas menit di meja, tanpa istirahat</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="sub" style="margin-top:26px" data-when="en">
+    After 18:00 the lights go down and the office runs at night. Click the boss to give him a name.
+  </p>
+  <p class="sub" style="margin-top:26px" data-when="id">
+    Lewat jam 18:00 lampunya meredup dan kantornya berganti suasana malam. Klik bosnya untuk memberi
+    dia nama.
+  </p>
+</section>
+
+<section id="resources" class="wrap">
+  <div class="split">
+    <div>
+      <h2 data-when="en">What each terminal costs</h2>
+      <h2 data-when="id">Berapa biaya tiap terminal</h2>
+      <p data-when="en">
+        The status bar shows the focused terminal's memory and CPU. <b>Resources</b>
+        (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd>) lists them all side by side, with a bar each,
+        the group and process id underneath, and a total at the foot.
+      </p>
+      <p data-when="id">
+        Status bar menampilkan memori dan CPU terminal yang sedang fokus. <b>Resources</b>
+        (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd>) menampilkan semuanya berdampingan, masing-masing
+        dengan bar, nama grup dan process id di bawahnya, serta total di kakinya.
+      </p>
+      <p data-when="en">Hidden tabs are not sampled, so watching costs nothing while you are not looking.</p>
+      <p data-when="id">Tab yang tersembunyi tidak disampel, jadi pemantauan tidak membebani saat tidak dilihat.</p>
+    </div>
+    <div>
+      <div class="shot"><img src="img/resources.png" alt="The resource monitor" width="620" height="250"></div>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="wrap">
+  <h2 data-when="en">Install</h2>
+  <h2 data-when="id">Instalasi</h2>
+  <p class="sub" data-when="en">
+    Download <code>TerminalManagerSetup.exe</code> and run it. It installs per user by default, into
+    <code>%LOCALAPPDATA%\Programs\TerminalManager</code>, so Windows raises no UAC prompt. Your
+    <code>profiles.json</code> is created on first run — it never ships inside the installer.
+  </p>
+  <p class="sub" data-when="id">
+    Unduh <code>TerminalManagerSetup.exe</code> lalu jalankan. Secara default dipasang per pengguna, ke
+    <code>%LOCALAPPDATA%\Programs\TerminalManager</code>, jadi Windows tidak memunculkan prompt UAC.
+    <code>profiles.json</code> dibuat saat pertama dijalankan — tidak pernah ikut di dalam installer.
+  </p>
+
+  <pre data-when="en">TerminalManagerSetup.exe /S                 install with the defaults
+TerminalManagerSetup.exe /S /allusers       install into Program Files (needs admin)
+TerminalManagerSetup.exe /S /dir:"C:\path"  choose the folder
+
+uninstall.exe /uninstall /S                 remove silently, keep profiles
+uninstall.exe /uninstall /S /purge          remove silently, delete profiles too</pre>
+  <pre data-when="id">TerminalManagerSetup.exe /S                 pasang dengan pengaturan default
+TerminalManagerSetup.exe /S /allusers       pasang ke Program Files (butuh admin)
+TerminalManagerSetup.exe /S /dir:"C:\path"  tentukan foldernya
+
+uninstall.exe /uninstall /S                 copot senyap, profil disimpan
+uninstall.exe /uninstall /S /purge          copot senyap, profil ikut dihapus</pre>
+
+  <div class="cta" style="justify-content:flex-start">
+    <a class="btn primary" href="https://github.com/alenovan/terminal-manager/releases/latest">
+      <span data-when="en">Get the latest release</span><span data-when="id">Ambil rilis terbaru</span>
+    </a>
+    <a class="btn" href="https://github.com/alenovan/terminal-manager/blob/main/README.md">README (EN)</a>
+    <a class="btn" href="https://github.com/alenovan/terminal-manager/blob/main/README.id.md">README (ID)</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>MIT licensed</span>
+    <span class="spacer"></span>
+    <a href="https://github.com/alenovan/terminal-manager">GitHub</a>
+    <a href="https://github.com/alenovan/terminal-manager/releases">
+      <span data-when="en">Releases</span><span data-when="id">Rilis</span>
+    </a>
+    <a href="https://github.com/alenovan">alenovan</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll('.langswitch button');
+
+    function apply(lang) {
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute('aria-pressed', String(buttons[i].dataset.set === lang));
+      }
+      try { localStorage.setItem('tm-lang', lang); } catch (e) {}
+    }
+
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function () { apply(this.dataset.set); });
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('tm-lang'); } catch (e) {}
+    if (!saved) saved = (navigator.language || 'en').toLowerCase().indexOf('id') === 0 ? 'id' : 'en';
+    apply(saved);
+  })();
+</script>
+
+</body>
+</html>

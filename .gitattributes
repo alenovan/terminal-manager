@@ -7,3 +7,6 @@
 
 *.ico binary
 *.exe binary
+
+*.png  binary
+*.html text eol=lf
