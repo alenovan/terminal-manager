@@ -87,16 +87,17 @@ if you prefer.
 
 ### Opening terminals
 
-Press **Launch** (or `Ctrl+Enter`, or double-click a profile in the sidebar). The terminal opens as a
-pane **inside the window**.
+Press **Launch** (or `Ctrl+Enter`, or double-click a profile in the sidebar). The terminal opens
+**inside the window**, in a tab of its own — clicking a profile shows that terminal and nothing else.
 
-Launch again and the next terminal joins the same tab as another pane, splitting along the longer
-side. That is the default: repeated launches grow a balanced grid rather than a stack of thin strips.
+Grids are opt-in, never a side effect of opening one profile:
 
-**Launch whole group** opens every in-app profile of a group at once, arranged as a grid — two
-profiles side by side, four as a 2x2.
-
-To keep something separate instead, use **New tab** (`Ctrl+Shift+Enter`).
+- **Add pane** (`Ctrl+Shift+Enter`) opens the selected profile beside whatever tab is already open,
+  splitting along the longer side. Repeat it and the tab grows into a balanced grid rather than a
+  stack of thin strips.
+- **Launch whole group** opens every in-app profile of a group at once as one tab of panes — two
+  profiles side by side, four as a 2x2.
+- `Alt+Shift+D` and `Alt+Shift+E` split the focused pane directly.
 
 ### Panes
 
@@ -105,12 +106,17 @@ To keep something separate instead, use **New tab** (`Ctrl+Shift+Enter`).
 | Split right / down | `Alt+Shift+D` / `Alt+Shift+E` |
 | Move between panes | `Alt`+arrow keys |
 | Resize | drag the divider between panes |
+| Rearrange | drag a pane by its header onto another pane |
 | Move a pane to its own tab | the button in the pane header, or `Alt+Shift+T` |
 | Fold a pane back into the previous tab | `Alt+Shift+G` |
 | Close a pane | the cross in its header, or `Ctrl+Shift+W` |
 
-Moving a pane between tabs does not restart it. The control is re-parented; the shell keeps running
-and keeps its scrollback.
+Dragging a pane by its header moves it within the grid. Drop it on the outer quarter of another
+pane's edge to land on that side; drop it in the middle to swap the two panes. The shape of the
+split follows from where you let go.
+
+Moving a pane, whether by dragging or between tabs, does not restart it. The control is re-parented;
+the shell keeps running and keeps its scrollback.
 
 Closing a pane or a tab ends the process **and everything it started**, because each session runs
 inside a job object. A `npm run dev` started in a pane cannot survive as an orphan.
@@ -152,6 +158,22 @@ Double-click to open one. Deleting a workspace does not delete the profiles it p
 **Save the output.** **Save output** (`Ctrl+Shift+S`) writes the focused pane's whole scrollback — up
 to 5000 lines — to a `.log` or `.txt` file as plain text, with ANSI colour dropped.
 
+### Scrolling
+
+The wheel scrolls the pane the pointer is over, whether or not it holds focus. `Shift+PgUp` and
+`Shift+PgDn` move a screen at a time, `Ctrl+Shift+Home` and `Ctrl+Shift+End` jump to either end,
+and the slim bar on the right can be dragged. Scrollback holds 5000 lines.
+
+Programs that take over the screen — `vim`, `htop`, `less` — run on the alternate buffer, which
+has no scrollback by design; there the wheel sends arrow keys instead, so the program scrolls itself.
+
+### Administrator
+
+When Terminal Manager starts without administrator rights it says so once and offers to restart
+elevated. Declining is fine — the title bar then carries a **no admin** badge, and the footer explains
+that profiles marked Run as Administrator will open in separate windows. Tick **Do not ask again** to
+silence the prompt; the badge stays either way.
+
 ### Selecting and copying
 
 Drag to select, double-click for a word, triple-click for a line. `Ctrl+Shift+C` copies,
@@ -191,7 +213,7 @@ Python.
 | Key | Action |
 |---|---|
 | `Ctrl+Enter` | Launch the selected profile |
-| `Ctrl+Shift+Enter` | Launch it in a new tab |
+| `Ctrl+Shift+Enter` | Open it as a pane beside the current tab |
 | `Ctrl+S` | Save the profile form |
 | `Ctrl+F` | Focus the search box |
 | `Ctrl+N` | New profile |

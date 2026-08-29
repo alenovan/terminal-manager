@@ -89,16 +89,17 @@ tangan kalau lebih suka.
 ### Membuka terminal
 
 Tekan **Launch** (atau `Ctrl+Enter`, atau klik dua kali profil di sidebar). Terminalnya terbuka
-sebagai pane **di dalam window**.
+**di dalam window**, di tab tersendiri — klik satu profil, yang muncul terminal itu saja, tidak ada
+yang lain.
 
-Tekan Launch lagi dan terminal berikutnya bergabung ke tab yang sama sebagai pane baru, memecah
-mengikuti sisi terpanjang. Itu perilaku default: Launch berulang menumbuhkan grid seimbang, bukan
-tumpukan strip tipis.
+Grid sifatnya diminta, bukan efek samping dari membuka satu profil:
 
-**Launch whole group** membuka semua profil in-app satu grup sekaligus, tersusun sebagai grid — dua
-profil berdampingan, empat jadi 2x2.
-
-Kalau ingin dipisah, pakai **New tab** (`Ctrl+Shift+Enter`).
+- **Add pane** (`Ctrl+Shift+Enter`) membuka profil terpilih di samping tab yang sedang terbuka,
+  memecah mengikuti sisi terpanjang. Ulangi dan tab itu tumbuh jadi grid seimbang, bukan tumpukan
+  strip tipis.
+- **Launch whole group** membuka semua profil in-app satu grup sekaligus jadi satu tab berisi pane —
+  dua profil berdampingan, empat jadi 2x2.
+- `Alt+Shift+D` dan `Alt+Shift+E` memecah pane yang sedang fokus secara langsung.
 
 ### Pane
 
@@ -107,12 +108,17 @@ Kalau ingin dipisah, pakai **New tab** (`Ctrl+Shift+Enter`).
 | Pecah ke kanan / ke bawah | `Alt+Shift+D` / `Alt+Shift+E` |
 | Pindah antar pane | `Alt`+tombol panah |
 | Ubah ukuran | seret garis pemisah antar pane |
+| Susun ulang | seret pane lewat header-nya ke pane lain |
 | Pindahkan pane ke tab sendiri | tombol di header pane, atau `Alt+Shift+T` |
 | Lipat pane kembali ke tab sebelumnya | `Alt+Shift+G` |
 | Tutup pane | tanda silang di header-nya, atau `Ctrl+Shift+W` |
 
-Memindahkan pane antar tab **tidak** me-restart prosesnya. Kontrolnya hanya berganti induk; shell-nya
-tetap hidup beserta seluruh scrollback-nya.
+Menyeret pane lewat header-nya memindahkannya di dalam grid. Jatuhkan di seperempat tepi pane lain
+untuk mendarat di sisi itu; jatuhkan di tengah untuk menukar posisi keduanya. Bentuk pemecahannya
+mengikuti tempat kamu melepas.
+
+Memindahkan pane, baik dengan seret maupun antar tab, **tidak** me-restart prosesnya. Kontrolnya
+hanya berganti induk; shell-nya tetap hidup beserta seluruh scrollback-nya.
 
 Menutup pane atau tab menghentikan proses **beserta semua anaknya**, karena tiap sesi berjalan di
 dalam job object. `npm run dev` yang dijalankan di sebuah pane tidak bisa lolos jadi proses yatim.
@@ -156,6 +162,24 @@ Klik dua kali untuk membukanya. Menghapus workspace tidak menghapus profil yang 
 **Simpan outputnya.** **Save output** (`Ctrl+Shift+S`) menulis seluruh scrollback pane yang sedang
 fokus — sampai 5000 baris — ke file `.log` atau `.txt` sebagai teks polos, tanpa warna ANSI.
 
+### Menggulir
+
+Roda mouse menggulir pane yang sedang **ditunjuk kursor**, tidak peduli pane itu sedang fokus atau
+tidak. `Shift+PgUp` dan `Shift+PgDn` bergerak satu layar, `Ctrl+Shift+Home` dan
+`Ctrl+Shift+End` melompat ke ujung, dan bilah tipis di kanan bisa diseret. Scrollback menampung
+5000 baris.
+
+Program yang mengambil alih layar — `vim`, `htop`, `less` — berjalan di alternate buffer, yang
+memang tidak punya scrollback; di sana roda mouse mengirim tombol panah supaya programnya sendiri
+yang menggulir.
+
+### Administrator
+
+Saat Terminal Manager dibuka tanpa hak administrator, aplikasi memberitahu sekali dan menawarkan
+restart secara elevated. Menolak tidak masalah — title bar lalu memasang lencana **no admin**, dan
+status bar menjelaskan bahwa profil bertanda Run as Administrator akan terbuka di window terpisah.
+Centang **Do not ask again** untuk membungkam tawarannya; lencananya tetap ada.
+
 ### Menyeleksi dan menyalin
 
 Seret untuk menyeleksi, klik dua kali untuk satu kata, tiga kali untuk satu baris. `Ctrl+Shift+C`
@@ -195,7 +219,7 @@ Python.
 | Tombol | Aksi |
 |---|---|
 | `Ctrl+Enter` | Jalankan profil terpilih |
-| `Ctrl+Shift+Enter` | Jalankan di tab baru |
+| `Ctrl+Shift+Enter` | Buka sebagai pane di samping tab yang sedang terbuka |
 | `Ctrl+S` | Simpan form profil |
 | `Ctrl+F` | Fokus ke kotak pencarian |
 | `Ctrl+N` | Profil baru |
