@@ -234,20 +234,30 @@ Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
 | Mengetik cepat, berkeringat | CPU di atas 40% |
 | Mengetik | 8% ke atas |
 | Duduk, tangan di meja | ada kegiatan, di bawah 8% |
-| Berdiri, berjalan ke galon air, minum, lalu kembali | sepi sekitar enam detik |
+| Mengetik cepat, muka memerah, berkeringat, hawa panas mengepul | CPU di atas 40% — dan tetap dikerjakan |
+| Berjalan ke galon air, minum, lalu kembali | sepi sekitar enam detik |
+| Masuk ke ruang kopi dan berlama-lama di sana | sepi, dan kebetulan memilih ngopi |
 | Main game di meja, layarnya menampilkan gamenya | sepi, dan kebetulan memilih main |
 | Menggeliat, tangan ke atas | sepi, dan kebetulan memilih meregangkan badan |
-| Tertidur di meja, `z` mengambang | sepi sekitar setengah menit |
+| Tertidur di meja, `z` mengambang | **satu jam** tanpa pekerjaan sama sekali |
 | Kursi kosong, monitor gelap | prosesnya sudah selesai, atau belum pernah dijalankan |
 
-Karakter yang sedang sepi memilih sendiri antara minum, main game, atau menggeliat, supaya kantor
-yang menganggur tetap terlihat seperti kantor, bukan barisan patung. Yang mengambil air benar-benar
-**berjalan**: keluar dari mejanya, menyusuri koridor, ke galon, lalu kembali, menghadap ke arah
-jalannya.
+Karakter yang sedang sepi memilih sendiri antara minum, ngopi, main game, atau menggeliat, supaya
+kantor yang menganggur tetap terlihat seperti kantor, bukan barisan patung. Yang mengambil air atau
+ngopi benar-benar **berjalan** ke sana: keluar dari mejanya, menyusuri koridor, lewat pintu ruang
+kopi, lalu kembali, menghadap ke arah jalannya. Hanya **satu jam** tanpa pekerjaan sama sekali yang
+membuat seseorang tertidur di mejanya.
 
-Lantainya satu kantor utuh dilihat dari atas — lantai berubin, dinding dengan papan tulis, jendela,
-dan jam, meja lengkap dengan monitor, keyboard, dan cangkir, konter dapur dengan mesin kopi, galon
-air, serta tanaman. Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi
+Tiap karakter punya warna baju dan rambutnya sendiri, jadi dua profil dengan shell yang sama tetap
+mudah dibedakan.
+
+Lantainya satu kantor utuh dilihat dari atas: lantai berubin; dinding dengan papan tulis, jendela ke
+arah malam, dan jam dinding yang jarumnya mengikuti jam sistemmu; meja lengkap dengan monitor,
+keyboard, mouse, dan cangkir; ruang kopi di balik sekat dengan pintunya sendiri, konter, mesin kopi,
+dan meja bundar berikut dua bangku; serta lounge terbuka dengan galon air dan tanaman.
+
+Jendelanya bisa dimaksimalkan, lewat tombol di header atau klik dua kali pada header. Ruangannya
+digambar pada skala bulat terbesar yang muat, jadi ikut membesar bersama jendela, bukan melar. Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi
 pikselnya sungguhan, bukan bentuk halus yang berpura-pura. Ini jendela untuk dilihat saja: tidak ada
 yang bisa diklik, dan `Esc` menutupnya.
 

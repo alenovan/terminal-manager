@@ -227,19 +227,30 @@ What each character does is driven by its session's real CPU, not by a script:
 | Typing fast, sweating | over 40% CPU |
 | Typing | 8% and up |
 | Sitting, hands on the desk | some activity, under 8% |
-| Gets up, walks to the water cooler, drinks, walks back | quiet for about six seconds |
+| Typing fast, flushed, sweating, heat rising off them | over 40% CPU - and they keep going |
+| Walks to the water cooler, drinks, walks back | quiet for about six seconds |
+| Walks into the coffee room and stays a while | quiet, and it felt like coffee instead |
 | Playing a game at the desk, the monitor showing it | quiet, and it felt like a game instead |
 | Stretching, arms up | quiet, and it felt like a stretch instead |
-| Asleep at the desk, `z` drifting up | quiet for about half a minute |
+| Asleep at the desk, `z` drifting up | **an hour** with nothing to do |
 | Empty chair, dark monitor | the process has exited, or was never started |
 
-A quiet character picks between water, a game, and a stretch, so an idle office looks like an office
-rather than a row of statues. The one going for water actually walks: out of the pod, along the
-corridor, to the cooler and back, facing the way it is going.
+A quiet character picks between water, coffee, a game, and a stretch, so an idle office looks like an
+office rather than a row of statues. The ones going for water or coffee actually walk there: out of
+the pod, along the corridor, through the coffee room's doorway, and back again, facing the way they
+are going. Only an hour of complete quiet puts somebody to sleep at their desk.
 
-The floor is a single office seen from above - tiled floor, walls with a whiteboard, windows and a
-clock, desks with monitors, keyboards and mugs, a kitchen counter with a coffee machine, a water
-cooler with its gallon bottle, and plants. The scene is composed at one unit per pixel and scaled up
+Each character has its own shirt colour and hair, so two profiles running the same shell are still
+told apart at a glance.
+
+The floor is a single office seen from above: tiled floor, walls carrying a whiteboard, windows onto
+the night and a wall clock whose hands are set from your system time; desks with monitors, keyboards,
+mice and mugs; a coffee room behind a partition with its own doorway, counter, coffee machine and a
+table with two stools; and an open lounge with a water cooler, its gallon bottle, and plants.
+
+The window can be maximised, from the button in its header or by double-clicking the header. The room
+is drawn at the largest whole-number scale that fits, so it grows with the window instead of
+stretching. The scene is composed at one unit per pixel and scaled up
 with nearest-neighbour, so the pixels are real rather than smooth shapes pretending. It is a window
 to watch: nothing in it is clickable, and `Esc` closes it.
 
