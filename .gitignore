@@ -1,0 +1,21 @@
+# This repository publishes the installer and its documentation only.
+# The source is kept out of it deliberately.
+src/
+assets/
+build.cmd
+build-setup.cmd
+
+# Build output. The installer is attached to a release, never committed.
+*.exe
+*.pdb
+
+# Local data, created by the application on first run after install.
+profiles.json
+session.json
+*.log
+
+# Windows / editor noise
+Thumbs.db
+desktop.ini
+.vs/
+.vscode/

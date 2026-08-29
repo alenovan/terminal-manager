@@ -1,0 +1,248 @@
+# Terminal Manager
+
+**English** · [Bahasa Indonesia](README.id.md)
+
+A terminal profile launcher for Windows that runs the terminals **inside its own window**, like the
+terminal panel of an IDE. Save your shells as profiles, group them, and open them as a grid of live
+panes instead of a scatter of separate windows.
+
+No runtime to install, no dependencies. One `.exe`.
+
+```
++-- Local ---------+---------------+
+| PS C:\> npm run  | $ git status  |
+| ready on :3000   | On branch main|
+| _                | _             |
++------------------+---------------+
+| wsl:~$ htop      | ssh prod      |
+| CPU  32%         | root@prod:~#  |
+| _                | _             |
++------------------+---------------+
+```
+
+The terminals are real. Terminal Manager talks to the Windows pseudo console (ConPTY), so ANSI
+colour, cursor control, resizing, and full-screen TUI programs such as `vim`, `htop` or an `ssh`
+password prompt all behave exactly as they would in a normal console.
+
+---
+
+## Install
+
+1. Download `TerminalManagerSetup.exe` from the
+   [latest release](https://github.com/alenovan/terminal-manager/releases/latest).
+2. Run it.
+
+That is the whole distribution — a single installer, with the application embedded inside it.
+
+By default it installs **per user**, into `%LOCALAPPDATA%\Programs\TerminalManager`, so Windows does
+not raise a UAC prompt. Tick **Install for all users** to put it in `Program Files` instead; the
+installer then asks for administrator rights and runs an elevated copy of itself.
+
+The installer creates optional Desktop and Start Menu shortcuts and registers the application in
+**Add or remove programs**, so it uninstalls the way any other program does.
+
+Your `profiles.json` does not ship with the installer. It is created on first run, seeded with a few
+sample profiles you can rename or delete.
+
+### Requirements
+
+| | |
+|---|---|
+| Windows | 10 version 1809 or newer, for the pseudo console |
+| .NET | Framework 4.x — already present on every Windows 10 and 11 |
+
+On older Windows the application still runs, but profiles fall back to opening in a separate window.
+
+### Silent install
+
+```
+TerminalManagerSetup.exe /S                        install with the defaults
+TerminalManagerSetup.exe /S /allusers              install into Program Files (needs admin)
+TerminalManagerSetup.exe /S /dir:"C:\path"         choose the folder
+TerminalManagerSetup.exe /S /nodesktop /nostartmenu
+```
+
+### Uninstall
+
+Use **Add or remove programs**, or run `uninstall.exe` from the install folder. Your profiles are
+kept unless you tick the box to delete them.
+
+```
+uninstall.exe /uninstall /S            remove silently, keep profiles
+uninstall.exe /uninstall /S /purge     remove silently, delete profiles too
+```
+
+---
+
+## Usage
+
+### Groups and profiles
+
+The sidebar holds **groups** — plain folders such as `Local`, `Dev`, `Servers` — and each group holds
+**profiles**. A profile is one terminal configuration: the program to run, its arguments, working
+directory, environment variables, and how to open it.
+
+Everything is written to `profiles.json` the moment it changes. It is readable JSON; edit it by hand
+if you prefer.
+
+### Opening terminals
+
+Press **Launch** (or `Ctrl+Enter`, or double-click a profile in the sidebar). The terminal opens as a
+pane **inside the window**.
+
+Launch again and the next terminal joins the same tab as another pane, splitting along the longer
+side. That is the default: repeated launches grow a balanced grid rather than a stack of thin strips.
+
+**Launch whole group** opens every in-app profile of a group at once, arranged as a grid — two
+profiles side by side, four as a 2x2.
+
+To keep something separate instead, use **New tab** (`Ctrl+Shift+Enter`).
+
+### Panes
+
+| | |
+|---|---|
+| Split right / down | `Alt+Shift+D` / `Alt+Shift+E` |
+| Move between panes | `Alt`+arrow keys |
+| Resize | drag the divider between panes |
+| Move a pane to its own tab | the button in the pane header, or `Alt+Shift+T` |
+| Fold a pane back into the previous tab | `Alt+Shift+G` |
+| Close a pane | the cross in its header, or `Ctrl+Shift+W` |
+
+Moving a pane between tabs does not restart it. The control is re-parented; the shell keeps running
+and keeps its scrollback.
+
+Closing a pane or a tab ends the process **and everything it started**, because each session runs
+inside a job object. A `npm run dev` started in a pane cannot survive as an orphan.
+
+### Launch modes
+
+| Mode | Where the terminal opens |
+|---|---|
+| `Inline` | inside this window |
+| `Auto` | inside this window |
+| `Windows Terminal` | a separate Windows Terminal window |
+| `Console` | a separate console window |
+
+In-app is the default. Opening outside is an explicit choice.
+
+Two cases fall back to a separate window on their own, and the status bar says why:
+
+- **Run as Administrator** profiles, unless Terminal Manager is itself elevated. A medium-integrity
+  process cannot hand a pseudo console to a high-integrity child, because UAC elevation goes through
+  `ShellExecute`, which takes no attribute list. Use **Restart as admin** in the toolbar to reopen
+  the whole application elevated — every terminal inside it is then elevated too.
+- Windows older than 10 version 1809, where the pseudo console does not exist.
+
+### Saving your session
+
+A live shell cannot be carried across a restart — Windows has no way to move a running process and
+its pseudo console into a new session. What can be saved is the arrangement, or the text on screen.
+
+**Reopen as you left it.** The open tabs and panes are written to `session.json` when the application
+closes: which profile, in which position, at which divider ratio. On the next start the arrangement
+is rebuilt and the shells are started **fresh** — a clean prompt, not the previous output. A profile
+deleted in the meantime does not break the restore; its leaf collapses and its sibling takes the
+space.
+
+**Named workspaces.** **Save layout** (`Ctrl+Shift+L`) stores the current tab's grid under a name.
+Workspaces appear in the sidebar above the groups, marked with a 2x2 icon and their pane count.
+Double-click to open one. Deleting a workspace does not delete the profiles it points at.
+
+**Save the output.** **Save output** (`Ctrl+Shift+S`) writes the focused pane's whole scrollback — up
+to 5000 lines — to a `.log` or `.txt` file as plain text, with ANSI colour dropped.
+
+### Selecting and copying
+
+Drag to select, double-click for a word, triple-click for a line. `Ctrl+Shift+C` copies,
+`Ctrl+Shift+V` pastes, and so does a right-click. Bracketed paste is supported, so shells that
+enable it receive multi-line pastes safely.
+
+Every other key goes to the shell. `Ctrl+C`, `Ctrl+S`, `Ctrl+N` and the rest reach the process, not
+the application.
+
+---
+
+## Profile fields
+
+| Field | What it does |
+|---|---|
+| Profile name | The name in the sidebar, and the default tab title |
+| Group | Moves the profile to another group |
+| Shell preset | Fills in Executable and Arguments. Pick `Custom` to write them yourself |
+| Launch mode | See the table above |
+| Executable | The program to run, e.g. `pwsh.exe` |
+| Arguments | Raw arguments, e.g. `-NoLogo -NoExit` |
+| Working directory | Starting folder. Environment variables are expanded: `%USERPROFILE%` |
+| Environment variables | `KEY=VALUE`, one per line. Lines starting with `#` are ignored |
+| Tab title | Tab title for Windows Terminal |
+| Windows Terminal profile | The WT profile to use (`-p`), to inherit its colours and font |
+| Run as Administrator | Run elevated (raises a UAC prompt) |
+
+Presets are included for PowerShell 5.1, PowerShell 7, Command Prompt, WSL, Git Bash, SSH, Node and
+Python.
+
+---
+
+## Keyboard shortcuts
+
+### Application
+
+| Key | Action |
+|---|---|
+| `Ctrl+Enter` | Launch the selected profile |
+| `Ctrl+Shift+Enter` | Launch it in a new tab |
+| `Ctrl+S` | Save the profile form |
+| `Ctrl+F` | Focus the search box |
+| `Ctrl+N` | New profile |
+| `F2` | Rename |
+| `Ctrl+Tab` / `Ctrl+Shift+Tab` | Switch tabs |
+| `Ctrl+Shift+L` | Save the current tab as a workspace |
+| `Ctrl+Shift+S` | Save the focused pane's output to a file |
+
+### Panes
+
+| Key | Action |
+|---|---|
+| `Alt+Shift+D` / `Alt+Shift+E` | Split right / down |
+| `Alt`+arrows | Move between panes |
+| `Alt+Shift+T` | Move the pane to its own tab |
+| `Alt+Shift+G` | Fold the pane into the previous tab |
+| `Ctrl+Shift+W` | Close the pane |
+
+### Inside a terminal
+
+| Key | Action |
+|---|---|
+| `Ctrl+Shift+C` / `Ctrl+Shift+V` | Copy / paste (right-click also pastes) |
+| `Ctrl+Shift+A` | Select all |
+| `Shift+PgUp` / `Shift+PgDn` | Scroll the scrollback |
+| `Ctrl+Shift+Home` / `Ctrl+Shift+End` | Jump to the top / bottom |
+| `Ctrl+=` / `Ctrl+-` / `Ctrl+0` | Zoom in / out / reset |
+| `Ctrl+R` | Restart a session whose process has ended |
+
+## Technical notes
+
+- **The terminal.** `CreatePseudoConsole` plus `CreateProcess` with
+  `PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE`. Output is read on a background thread and drained by a
+  16 ms UI timer with a per-tick byte budget, so a flood of output cannot freeze the interface.
+- **The renderer.** Cells are drawn with `ExtTextOut` and an explicit advance array, so columns line
+  up exactly instead of drifting over a long line. Runs of identical styling are drawn in one call.
+- **The VT emulator** is a practical subset, not a complete xterm: SGR including 256-colour and
+  truecolour, cursor movement, scroll regions, the alternate buffer, bracketed paste, and mouse
+  reporting. Resizing does not reflow text that has already been printed — columns stay where they
+  were, like conhost before reflow existed.
+- **Process trees.** Each session is assigned to a job object with kill-on-close, so closing a pane
+  takes down the whole tree.
+- **Environment variables** are handed to ConPTY as a real environment block. The temporary `.cmd`
+  wrapper is only needed for external launches, where `ShellExecute` — required for UAC — cannot
+  carry them.
+- **Portable data.** `profiles.json` lives next to the executable when that folder is writable, and
+  falls back to `%APPDATA%\TerminalManager` when it is not, such as under `Program Files`. The active
+  path is always shown in the status bar.
+
+---
+
+## License
+
+[MIT](LICENSE)
