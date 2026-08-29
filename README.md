@@ -90,11 +90,14 @@ if you prefer.
 Press **Launch** (or `Ctrl+Enter`, or double-click a profile in the sidebar). The terminal opens
 **inside the window**, in a tab of its own — clicking a profile shows that terminal and nothing else.
 
-Grids are opt-in, never a side effect of opening one profile:
+Terminals gather by group: **one tab per group**. Opening a second profile from the same group puts
+it beside the first as another pane, while a profile from a different group opens its own tab. So a
+group's terminals stay together and visible, and reaching for another group never hides them.
 
-- **Add pane** (`Ctrl+Shift+Enter`) opens the selected profile beside whatever tab is already open,
-  splitting along the longer side. Repeat it and the tab grows into a balanced grid rather than a
-  stack of thin strips.
+The rest is opt-in:
+
+- **Add pane** (`Ctrl+Shift+Enter`) forces the selected profile into whichever tab is in front,
+  even one belonging to another group. Use it to build a grid across groups on purpose.
 - **Launch whole group** opens every in-app profile of a group at once as one tab of panes — two
   profiles side by side, four as a 2x2.
 - `Alt+Shift+D` and `Alt+Shift+E` split the focused pane directly.
@@ -181,6 +184,16 @@ Double-click to open one. Deleting a workspace does not delete the profiles it p
 **Save the output.** **Save output** (`Ctrl+Shift+S`) writes the focused pane's whole scrollback — up
 to 5000 lines — to a `.log` or `.txt` file as plain text, with ANSI colour dropped.
 
+### What each terminal costs
+
+The status bar shows the focused terminal's memory and CPU — for example `pwsh   148 MB  3%  x4` —
+sampled every two seconds. When a tab holds more than one pane, the same figures also appear in each
+pane header, so a grid can be read at a glance.
+
+The numbers cover the whole process tree, not just the shell, because every session runs inside its
+own job object: a pane running `npm run dev` reports the dev server too. The trailing count appears
+when more than one process is alive in that session. Hidden tabs are not sampled at all.
+
 ### Scrolling
 
 The wheel scrolls the pane the pointer is over, whether or not it holds focus. `Shift+PgUp` and
@@ -222,6 +235,7 @@ the application.
 | Environment variables | `KEY=VALUE`, one per line. Lines starting with `#` are ignored |
 | Tab title | Tab title for Windows Terminal |
 | Windows Terminal profile | The WT profile to use (`-p`), to inherit its colours and font |
+| Startup commands | Typed into the shell on launch, one per line. Lines starting with `#` are ignored |
 | Run as Administrator | Run elevated (raises a UAC prompt) |
 
 Presets are included for PowerShell 5.1, PowerShell 7, Command Prompt, WSL, Git Bash, SSH, Node and

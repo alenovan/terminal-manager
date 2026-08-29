@@ -92,11 +92,15 @@ Tekan **Launch** (atau `Ctrl+Enter`, atau klik dua kali profil di sidebar). Term
 **di dalam window**, di tab tersendiri — klik satu profil, yang muncul terminal itu saja, tidak ada
 yang lain.
 
-Grid sifatnya diminta, bukan efek samping dari membuka satu profil:
+Terminal berkumpul menurut grup: **satu tab per grup**. Membuka profil kedua dari grup yang sama
+menaruhnya di samping yang pertama sebagai pane, sedangkan profil dari grup lain membuka tab
+sendiri. Jadi terminal satu grup tetap bersama dan terlihat, dan membuka grup lain tidak pernah
+menyembunyikannya.
 
-- **Add pane** (`Ctrl+Shift+Enter`) membuka profil terpilih di samping tab yang sedang terbuka,
-  memecah mengikuti sisi terpanjang. Ulangi dan tab itu tumbuh jadi grid seimbang, bukan tumpukan
-  strip tipis.
+Sisanya sifatnya diminta:
+
+- **Add pane** (`Ctrl+Shift+Enter`) memaksa profil terpilih masuk ke tab yang sedang di depan,
+  bahkan kalau tab itu milik grup lain. Pakai ini untuk menyusun grid lintas grup secara sengaja.
 - **Launch whole group** membuka semua profil in-app satu grup sekaligus jadi satu tab berisi pane —
   dua profil berdampingan, empat jadi 2x2.
 - `Alt+Shift+D` dan `Alt+Shift+E` memecah pane yang sedang fokus secara langsung.
@@ -186,6 +190,17 @@ Klik dua kali untuk membukanya. Menghapus workspace tidak menghapus profil yang 
 **Simpan outputnya.** **Save output** (`Ctrl+Shift+S`) menulis seluruh scrollback pane yang sedang
 fokus — sampai 5000 baris — ke file `.log` atau `.txt` sebagai teks polos, tanpa warna ANSI.
 
+### Berapa biaya tiap terminal
+
+Status bar menampilkan pemakaian memori dan CPU terminal yang sedang fokus — misalnya
+`pwsh   148 MB  3%  x4` — diambil sampelnya tiap dua detik. Kalau sebuah tab berisi lebih dari satu
+pane, angka yang sama juga muncul di header tiap pane, jadi satu grid bisa dibaca sekilas.
+
+Angkanya mencakup seluruh pohon proses, bukan cuma shell-nya, karena tiap sesi berjalan di dalam job
+object-nya sendiri: pane yang menjalankan `npm run dev` ikut melaporkan dev server-nya. Angka di
+belakang muncul saat ada lebih dari satu proses hidup di sesi itu. Tab yang tersembunyi tidak
+disampel sama sekali.
+
 ### Menggulir
 
 Roda mouse menggulir pane yang sedang **ditunjuk kursor**, tidak peduli pane itu sedang fokus atau
@@ -229,6 +244,7 @@ bukan ke aplikasi.
 | Environment variables | `KEY=VALUE`, satu per baris. Baris diawali `#` diabaikan |
 | Tab title | Judul tab untuk Windows Terminal |
 | Windows Terminal profile | Profil WT yang dipakai (`-p`), untuk mewarisi warna dan font-nya |
+| Startup commands | Perintah yang diketikkan ke shell saat diluncurkan, satu per baris. Baris diawali `#` diabaikan |
 | Run as Administrator | Jalankan elevated (memunculkan prompt UAC) |
 
 Tersedia preset untuk PowerShell 5.1, PowerShell 7, Command Prompt, WSL, Git Bash, SSH, Node, dan
