@@ -123,6 +123,30 @@ hanya berganti induk; shell-nya tetap hidup beserta seluruh scrollback-nya.
 Menutup pane atau tab menghentikan proses **beserta semua anaknya**, karena tiap sesi berjalan di
 dalam job object. `npm run dev` yang dijalankan di sebuah pane tidak bisa lolos jadi proses yatim.
 
+### Berpindah antara grid dan tab
+
+Satu tombol di toolbar membalik tab yang sedang aktif ke dua arah, dan tulisannya menunjukkan arah
+mana:
+
+- **To tabs** — tab itu berisi beberapa pane, jadi masing-masing dipindah ke tab sendiri.
+- **To grid** — tab itu berisi satu pane, jadi semua tab terminal lain ditarik masuk ke sampingnya.
+
+Pane satuan tetap bisa dipindah lewat tombol di header pane (`Alt+Shift+T`) dan `Alt+Shift+G`.
+
+### Grup, subgrup, dan kunci
+
+Grup bisa bersarang. Klik kanan sebuah grup untuk **New subgroup**, dan sidebar akan menjorokkan tiap
+tingkatnya. Angka di kanan grup menghitung profil dan subgrupnya sekaligus.
+
+Klik kanan juga menyediakan **Lock group**. Grup yang terkunci tidak bisa diganti nama atau dihapus,
+tidak ada profil yang bisa diseret masuk atau keluar darinya, dan isinya pun tidak bisa diganti nama
+atau dihapus — kuncinya berlaku sampai ke seluruh keturunannya. Ditandai gambar gembok. Membuka
+kuncinya lewat item menu yang sama.
+
+Seret profil ke grup lain untuk memindahkannya; jatuhkan di atas sebuah profil, maka ia bergabung ke
+grup profil itu. Grup utuh bisa diseret ke dalam grup lain dengan cara sama. Sebuah grup tidak bisa
+dijatuhkan ke dalam dirinya sendiri, dan grup terkunci menolak dua-duanya.
+
 ### Mode peluncuran
 
 | Mode | Terminal terbuka di mana |

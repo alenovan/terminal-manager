@@ -121,6 +121,29 @@ the shell keeps running and keeps its scrollback.
 Closing a pane or a tab ends the process **and everything it started**, because each session runs
 inside a job object. A `npm run dev` started in a pane cannot survive as an orphan.
 
+### Switching between a grid and tabs
+
+One toolbar button flips the current tab either way, and its caption says which:
+
+- **To tabs** — the tab holds several panes, so each one moves out into a tab of its own.
+- **To grid** — the tab holds a single pane, so every other terminal tab is pulled back in beside it.
+
+Individual panes still move one at a time with the button in the pane header (`Alt+Shift+T`) and
+`Alt+Shift+G`.
+
+### Groups, subgroups and locking
+
+Groups nest. Right-click a group for **New subgroup**, and the sidebar indents each level. The count
+on the right of a group counts its profiles and its subgroups together.
+
+Right-click also offers **Lock group**. A locked group cannot be renamed or deleted, no profile can
+be dragged into or out of it, and nothing inside it can be renamed or deleted either — the lock
+applies to every descendant. It is marked with a padlock. Unlocking is the same menu item.
+
+Drag a profile onto another group to move it there; drop it on a profile and it joins that profile's
+group. Whole groups can be dragged into other groups the same way. A group cannot be dropped inside
+itself, and locked groups refuse both directions.
+
 ### Launch modes
 
 | Mode | Where the terminal opens |
