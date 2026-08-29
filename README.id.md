@@ -234,13 +234,22 @@ Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
 | Mengetik cepat, berkeringat | CPU di atas 40% |
 | Mengetik | 8% ke atas |
 | Duduk, tangan di meja | ada kegiatan, di bawah 8% |
-| Ngopi dan menggeliat | sepi sekitar enam detik |
-| Tertidur di meja, `z` mengambang | sepi sekitar dua puluh detik |
+| Berdiri, berjalan ke galon air, minum, lalu kembali | sepi sekitar enam detik |
+| Main game di meja, layarnya menampilkan gamenya | sepi, dan kebetulan memilih main |
+| Menggeliat, tangan ke atas | sepi, dan kebetulan memilih meregangkan badan |
+| Tertidur di meja, `z` mengambang | sepi sekitar setengah menit |
 | Kursi kosong, monitor gelap | prosesnya sudah selesai, atau belum pernah dijalankan |
 
-Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi pikselnya sungguhan,
-bukan bentuk halus yang berpura-pura. Ini jendela untuk dilihat saja: tidak ada yang bisa diklik, dan
-`Esc` menutupnya.
+Karakter yang sedang sepi memilih sendiri antara minum, main game, atau menggeliat, supaya kantor
+yang menganggur tetap terlihat seperti kantor, bukan barisan patung. Yang mengambil air benar-benar
+**berjalan**: keluar dari mejanya, menyusuri koridor, ke galon, lalu kembali, menghadap ke arah
+jalannya.
+
+Lantainya satu kantor utuh dilihat dari atas — lantai berubin, dinding dengan papan tulis, jendela,
+dan jam, meja lengkap dengan monitor, keyboard, dan cangkir, konter dapur dengan mesin kopi, galon
+air, serta tanaman. Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi
+pikselnya sungguhan, bukan bentuk halus yang berpura-pura. Ini jendela untuk dilihat saja: tidak ada
+yang bisa diklik, dan `Esc` menutupnya.
 
 ### Menggulir
 

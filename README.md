@@ -227,13 +227,21 @@ What each character does is driven by its session's real CPU, not by a script:
 | Typing fast, sweating | over 40% CPU |
 | Typing | 8% and up |
 | Sitting, hands on the desk | some activity, under 8% |
-| Coffee and stretching | quiet for about six seconds |
-| Asleep at the desk, `z` drifting up | quiet for about twenty seconds |
+| Gets up, walks to the water cooler, drinks, walks back | quiet for about six seconds |
+| Playing a game at the desk, the monitor showing it | quiet, and it felt like a game instead |
+| Stretching, arms up | quiet, and it felt like a stretch instead |
+| Asleep at the desk, `z` drifting up | quiet for about half a minute |
 | Empty chair, dark monitor | the process has exited, or was never started |
 
-The scene is composed at one unit per pixel and scaled up with nearest-neighbour, so the pixels are
-real rather than smooth shapes pretending. It is a window to watch: nothing in it is clickable, and
-`Esc` closes it.
+A quiet character picks between water, a game, and a stretch, so an idle office looks like an office
+rather than a row of statues. The one going for water actually walks: out of the pod, along the
+corridor, to the cooler and back, facing the way it is going.
+
+The floor is a single office seen from above - tiled floor, walls with a whiteboard, windows and a
+clock, desks with monitors, keyboards and mugs, a kitchen counter with a coffee machine, a water
+cooler with its gallon bottle, and plants. The scene is composed at one unit per pixel and scaled up
+with nearest-neighbour, so the pixels are real rather than smooth shapes pretending. It is a window
+to watch: nothing in it is clickable, and `Esc` closes it.
 
 ### Scrolling
 
