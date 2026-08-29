@@ -241,6 +241,7 @@ Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
 | Menggeliat, tangan ke atas | sepi, dan kebetulan memilih meregangkan badan |
 | Tertidur di meja, `z` mengambang | **satu jam** tanpa pekerjaan sama sekali |
 | Kursi kosong, monitor gelap | prosesnya sudah selesai, atau belum pernah dijalankan |
+| Bos menghampiri dengan tanda seru di atas kepalanya | ada yang keterusan main game |
 
 Karakter yang sedang sepi memilih sendiri antara minum, ngopi, main game, atau menggeliat, supaya
 kantor yang menganggur tetap terlihat seperti kantor, bukan barisan patung. Yang mengambil air atau
@@ -255,6 +256,17 @@ Lantainya satu kantor utuh dilihat dari atas: lantai berubin; dinding dengan pap
 arah malam, dan jam dinding yang jarumnya mengikuti jam sistemmu; meja lengkap dengan monitor,
 keyboard, mouse, dan cangkir; ruang kopi di balik sekat dengan pintunya sendiri, konter, mesin kopi,
 dan meja bundar berikut dua bangku; serta lounge terbuka dengan galon air dan tanaman.
+
+Ada **ruangan bos** di sisi kanan, di balik dinding dan pintunya sendiri: meja lebar berlampu, kursi
+besar, rak buku, dan tanaman. Bosnya duduk di sana dan mengawasi. Kalau ada karakter yang keterusan
+main game, ia berdiri, berjalan menghampiri, berdiri di meja orang itu dengan tanda seru di atas
+kepalanya, lalu menyuruhnya kembali bekerja — dan yang ditegur tidak berani main lagi sekitar satu
+menit.
+
+**Kantornya mengikuti jammu.** Lewat pukul enam petang sampai pukul enam pagi seluruh lantai menjadi
+gelap: sapuan biru dingin, kolam cahaya hangat di bawah lampu langit-langit, monitor yang menyala,
+dan malam di balik jendela. Set `TM_OFFICE_NIGHT` ke `1` atau `0` untuk menguncinya dan melihat
+tampilan sebaliknya tanpa menunggu.
 
 Jendelanya bisa dimaksimalkan, lewat tombol di header atau klik dua kali pada header. Ruangannya
 digambar pada skala bulat terbesar yang muat, jadi ikut membesar bersama jendela, bukan melar. Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi

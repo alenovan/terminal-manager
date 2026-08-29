@@ -234,6 +234,7 @@ What each character does is driven by its session's real CPU, not by a script:
 | Stretching, arms up | quiet, and it felt like a stretch instead |
 | Asleep at the desk, `z` drifting up | **an hour** with nothing to do |
 | Empty chair, dark monitor | the process has exited, or was never started |
+| The boss walks over with an exclamation mark | somebody has been gaming too long |
 
 A quiet character picks between water, coffee, a game, and a stretch, so an idle office looks like an
 office rather than a row of statues. The ones going for water or coffee actually walk there: out of
@@ -247,6 +248,16 @@ The floor is a single office seen from above: tiled floor, walls carrying a whit
 the night and a wall clock whose hands are set from your system time; desks with monitors, keyboards,
 mice and mugs; a coffee room behind a partition with its own doorway, counter, coffee machine and a
 table with two stools; and an open lounge with a water cooler, its gallon bottle, and plants.
+
+There is a **boss office** down the right-hand side, behind its own wall and door: a wide desk with a
+lamp, a big chair, a bookshelf and a plant. The boss sits in it and watches. Let a character keep a
+game running too long and he gets up, walks over, stands at that desk with an exclamation mark over
+his head, and sends them back to work - that one will not risk another game for about a minute.
+
+**The office keeps your hours.** After six in the evening and before six in the morning the whole
+floor goes dark: a cold wash over the room, warm pools under the ceiling lights, the monitors
+glowing, and night behind the windows. Set `TM_OFFICE_NIGHT` to `1` or `0` to pin it either way
+and see the other look without waiting.
 
 The window can be maximised, from the button in its header or by double-clicking the header. The room
 is drawn at the largest whole-number scale that fits, so it grows with the window instead of
