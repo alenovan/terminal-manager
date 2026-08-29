@@ -221,6 +221,27 @@ Resources
   Total                   157 MB        8%
 ```
 
+### Kantor
+
+Tombol **Office** di toolbar, atau `Ctrl+Shift+O`, menggambar grup sebagai kantor pixel art.
+**Satu grup satu kantor, satu profil satu karakter.** Tiap profil di grup itu tetap punya mejanya
+entah terminalnya sedang jalan atau tidak, jadi denah kantornya tidak berubah-ubah sendiri.
+
+Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
+
+| Di layar | Artinya |
+|---|---|
+| Mengetik cepat, berkeringat | CPU di atas 40% |
+| Mengetik | 8% ke atas |
+| Duduk, tangan di meja | ada kegiatan, di bawah 8% |
+| Ngopi dan menggeliat | sepi sekitar enam detik |
+| Tertidur di meja, `z` mengambang | sepi sekitar dua puluh detik |
+| Kursi kosong, monitor gelap | prosesnya sudah selesai, atau belum pernah dijalankan |
+
+Adegannya disusun satu satuan per piksel lalu diperbesar nearest-neighbour, jadi pikselnya sungguhan,
+bukan bentuk halus yang berpura-pura. Ini jendela untuk dilihat saja: tidak ada yang bisa diklik, dan
+`Esc` menutupnya.
+
 ### Menggulir
 
 Roda mouse menggulir pane yang sedang **ditunjuk kursor**, tidak peduli pane itu sedang fokus atau
@@ -288,6 +309,7 @@ Python.
 | `Ctrl+Shift+L` | Simpan tab aktif sebagai workspace |
 | `Ctrl+Shift+S` | Simpan output pane yang fokus ke file |
 | `Ctrl+Shift+U` | Buka jendela pemantau sumber daya |
+| `Ctrl+Shift+O` | Buka tampilan kantor |
 
 ### Pane
 

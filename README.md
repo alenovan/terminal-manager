@@ -214,6 +214,27 @@ Resources
   Total                   157 MB        8%
 ```
 
+### The office
+
+**Office** in the toolbar, or `Ctrl+Shift+O`, draws the group as a pixel-art office. **One group is
+one office, one profile is one character.** Every profile in the group keeps its desk whether or not
+a terminal is running, so the floor plan stays put instead of rearranging itself.
+
+What each character does is driven by its session's real CPU, not by a script:
+
+| On screen | Meaning |
+|---|---|
+| Typing fast, sweating | over 40% CPU |
+| Typing | 8% and up |
+| Sitting, hands on the desk | some activity, under 8% |
+| Coffee and stretching | quiet for about six seconds |
+| Asleep at the desk, `z` drifting up | quiet for about twenty seconds |
+| Empty chair, dark monitor | the process has exited, or was never started |
+
+The scene is composed at one unit per pixel and scaled up with nearest-neighbour, so the pixels are
+real rather than smooth shapes pretending. It is a window to watch: nothing in it is clickable, and
+`Esc` closes it.
+
 ### Scrolling
 
 The wheel scrolls the pane the pointer is over, whether or not it holds focus. `Shift+PgUp` and
@@ -279,6 +300,7 @@ Python.
 | `Ctrl+Shift+L` | Save the current tab as a workspace |
 | `Ctrl+Shift+S` | Save the focused pane's output to a file |
 | `Ctrl+Shift+U` | Open the resource monitor |
+| `Ctrl+Shift+O` | Open the office view |
 
 ### Panes
 
