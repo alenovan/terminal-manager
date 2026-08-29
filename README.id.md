@@ -201,6 +201,26 @@ object-nya sendiri: pane yang menjalankan `npm run dev` ikut melaporkan dev serv
 belakang muncul saat ada lebih dari satu proses hidup di sesi itu. Tab yang tersembunyi tidak
 disampel sama sekali.
 
+Untuk membandingkannya berdampingan, tombol **Resources** di toolbar (`Ctrl+Shift+U`) membuka
+jendela pemantau: tiap terminal yang berjalan dengan bar memori dan bar CPU, nama grup dan process id
+di bawahnya, serta total di kakinya. Klik judul kolom untuk mengurutkan. Selama terbuka, jendela ini
+menyampel semua sesi termasuk yang tabnya tersembunyi, dan ditutup dengan `Esc`.
+
+```
+Resources
+3 running terminal(s)
+
+  Terminal                Memory        CPU
+  Memory hog              77 MB         0%
+  Test - pid 26416        ##########    ..........
+  Busy loop               77 MB         8%
+  Test - pid 25932        ##########    #.........
+  Idle shell              4 MB          0%
+  Test - pid 21736        #.........    ..........
+
+  Total                   157 MB        8%
+```
+
 ### Menggulir
 
 Roda mouse menggulir pane yang sedang **ditunjuk kursor**, tidak peduli pane itu sedang fokus atau
@@ -267,6 +287,7 @@ Python.
 | `Ctrl+Tab` / `Ctrl+Shift+Tab` | Pindah tab |
 | `Ctrl+Shift+L` | Simpan tab aktif sebagai workspace |
 | `Ctrl+Shift+S` | Simpan output pane yang fokus ke file |
+| `Ctrl+Shift+U` | Buka jendela pemantau sumber daya |
 
 ### Pane
 

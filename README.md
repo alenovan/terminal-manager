@@ -194,6 +194,26 @@ The numbers cover the whole process tree, not just the shell, because every sess
 own job object: a pane running `npm run dev` reports the dev server too. The trailing count appears
 when more than one process is alive in that session. Hidden tabs are not sampled at all.
 
+For comparing them side by side, **Resources** in the toolbar (`Ctrl+Shift+U`) opens a monitor
+listing every running terminal with a bar for memory and one for CPU, its group and process id
+underneath, and a total at the foot. Click a column heading to sort by it. The window samples every
+session while it is open, including the ones on hidden tabs, and closes with `Esc`.
+
+```
+Resources
+3 running terminal(s)
+
+  Terminal                Memory        CPU
+  Memory hog              77 MB         0%
+  Test - pid 26416        ##########    ..........
+  Busy loop               77 MB         8%
+  Test - pid 25932        ##########    #.........
+  Idle shell              4 MB          0%
+  Test - pid 21736        #.........    ..........
+
+  Total                   157 MB        8%
+```
+
 ### Scrolling
 
 The wheel scrolls the pane the pointer is over, whether or not it holds focus. `Shift+PgUp` and
@@ -258,6 +278,7 @@ Python.
 | `Ctrl+Tab` / `Ctrl+Shift+Tab` | Switch tabs |
 | `Ctrl+Shift+L` | Save the current tab as a workspace |
 | `Ctrl+Shift+S` | Save the focused pane's output to a file |
+| `Ctrl+Shift+U` | Open the resource monitor |
 
 ### Panes
 
