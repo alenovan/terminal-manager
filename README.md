@@ -235,6 +235,9 @@ What each character does is driven by its session's real CPU, not by a script:
 | Asleep at the desk, `z` drifting up | **an hour** with nothing to do |
 | Empty chair, dark monitor | the process has exited, or was never started |
 | The boss walks over with an exclamation mark | somebody has been gaming too long |
+| A bubble with a program name | that terminal is running `claude`, `node`, `git`... |
+| Two of them standing together, talking | both were idle and one wandered over |
+| Sparks, a whip crack, and a grumble | you clicked them |
 
 A quiet character picks between water, coffee, a game, and a stretch, so an idle office looks like an
 office rather than a row of statues. The ones going for water or coffee actually walk there: out of
@@ -248,6 +251,14 @@ The floor is a single office seen from above: tiled floor, walls carrying a whit
 the night and a wall clock whose hands are set from your system time; desks with monitors, keyboards,
 mice and mugs; a coffee room behind a partition with its own doorway, counter, coffee machine and a
 table with two stools; and an open lounge with a water cooler, its gallon bottle, and plants.
+
+**Click a character** and the whip cracks: sparks fly, they mutter something unrepeatable about the
+boss, and they stay nailed to their desk working for the next fifteen minutes - no water, no coffee,
+no games. **Click the boss** and you can give him a name.
+
+The boss keeps himself busy between inspections - on the phone, at his laptop, with a coffee, reading
+a report - and says so in a bubble. So does everybody else: a terminal running something says what it
+is running, kept to a word.
 
 There is a **boss office** down the right-hand side, behind its own wall and door: a wide desk with a
 lamp, a big chair, a bookshelf and a plant. The boss sits in it and watches. Let a character keep a

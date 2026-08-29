@@ -242,6 +242,9 @@ Tingkah tiap karakter digerakkan oleh CPU sesungguhnya, bukan skrip:
 | Tertidur di meja, `z` mengambang | **satu jam** tanpa pekerjaan sama sekali |
 | Kursi kosong, monitor gelap | prosesnya sudah selesai, atau belum pernah dijalankan |
 | Bos menghampiri dengan tanda seru di atas kepalanya | ada yang keterusan main game |
+| Gelembung berisi nama program | terminal itu sedang menjalankan `claude`, `node`, `git`... |
+| Dua orang berdiri berdekatan sambil bicara | keduanya menganggur, yang satu menghampiri |
+| Percikan api, bunyi cambuk, dan gerutuan | kamu mengkliknya |
 
 Karakter yang sedang sepi memilih sendiri antara minum, ngopi, main game, atau menggeliat, supaya
 kantor yang menganggur tetap terlihat seperti kantor, bukan barisan patung. Yang mengambil air atau
@@ -256,6 +259,14 @@ Lantainya satu kantor utuh dilihat dari atas: lantai berubin; dinding dengan pap
 arah malam, dan jam dinding yang jarumnya mengikuti jam sistemmu; meja lengkap dengan monitor,
 keyboard, mouse, dan cangkir; ruang kopi di balik sekat dengan pintunya sendiri, konter, mesin kopi,
 dan meja bundar berikut dua bangku; serta lounge terbuka dengan galon air dan tanaman.
+
+**Klik seorang karakter** dan cambuk berbunyi: percikan api beterbangan, ia menggerutu soal bosnya,
+lalu terpaku di mejanya bekerja selama **lima belas menit** — tidak minum, tidak ngopi, tidak main.
+**Klik bosnya** untuk memberinya nama.
+
+Bosnya juga punya kesibukan di sela pengawasan — menelepon, membuka laptop, memegang kopi, membaca
+laporan — dan mengatakannya lewat gelembung. Begitu pula karyawannya: terminal yang sedang menjalankan
+sesuatu menyebutkan apa yang dijalankan, cukup satu kata.
 
 Ada **ruangan bos** di sisi kanan, di balik dinding dan pintunya sendiri: meja lebar berlampu, kursi
 besar, rak buku, dan tanaman. Bosnya duduk di sana dan mengawasi. Kalau ada karakter yang keterusan
